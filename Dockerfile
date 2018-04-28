@@ -36,7 +36,8 @@ RUN apt-get update && apt-get install -y -q \
     libpangox-1.0-0:i386 \
     libpangoxft-1.0-0:i386 \
     libidn11:i386 \
-    zlib1g:i386
+    zlib1g:i386 \
+    wget
 
 RUN pip install --trusted-host pypi.python.org -r requirements-INSTALL-FIRST.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
@@ -60,7 +61,9 @@ RUN set -ex \
 RUN set -ex \
     && sudo -u kivy -i \
     && cd /opt \
-    && bsdtar xf /src/crystax-ndk-10.3.2-linux-x86_64.tar.xz
+    && wget https://www.crystax.net/download/crystax-ndk-10.3.2-linux-x86_64.tar.xz \
+    && bsdtar xf crystax-ndk-10.3.2-linux-x86_64.tar.xz \
+    && rm crystax-ndk-10.3.2-linux-x86_64.tar.xz
 
 RUN ln -s /usr/local/bin/buildozer /bin/buildozer
 
